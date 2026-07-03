@@ -9,7 +9,7 @@ name = input("📜 Enter your name:\n")
 print(f"Welcome, {name}!\n The castle has been expecting you. ")
 
 
-def sorting_hat():
+def sorting_hat(name):
     
     answers = []
     count ={'A':0, 'B':0, 'C':0, 'D':0}
@@ -40,7 +40,7 @@ def sorting_hat():
     C) Protect my friends and find another way around
     D) Use it to my advantage and make a deal with it\n
     
-    Answer---> ''')
+    Answer---> ''').upper().strip()
     time.sleep(2)
 
     print("🎩 Hmm...")
@@ -52,7 +52,7 @@ def sorting_hat():
     C) Yourself surrounded by all your friends, happy and safe
     D) Yourself powerful, respected and at the top of the wizarding world\n
     
-    Answer---> ''')
+    Answer---> ''').upper().strip()
     time.sleep(2)
     print("🎩 Curious...")
     time.sleep(3)
@@ -64,13 +64,15 @@ def sorting_hat():
     C) Report it to a teacher — some rules exist for good reason
     D) Keep it secret and use it only when it benefits you\n
     
-    Answer---> ''')
+    Answer---> ''').upper().strip()
     time.sleep(2)
 
 
     answers.append(Q1)
     answers.append(Q2)
     answers.append(Q3)
+
+    # print(answers)
 
     for ans in answers:
         count[ans]+=1
@@ -88,18 +90,22 @@ def sorting_hat():
             print("🎩 I know exactly where you belong...")
             time.sleep(3)
             print("🦁 GRYFFINDOR! 🦁")
+            return "GRYFFINDOR"
         elif maxi=='B':
             print("Interesting...")
             time.sleep(3)
             print("Ravenclaw 🦅")
+            return "Ravenclaw"
         elif maxi=='C':
             print("Aahhhh...")
             time.sleep(3)
             print("Hufflepuff 🦡")
+            return "Hufflepuff"
         elif maxi=='D':
             print("uh ohh...So...")
             time.sleep(3)
             print("It's Slytherin 🐍 ")
+            return "Slytherin"
 
     else:
         
@@ -111,7 +117,7 @@ def sorting_hat():
         C) Loyalty
         D) Ambition\n
     
-        Answer---> ''')
+        Answer---> ''').upper().strip()
 
         answers.append(Q4)
 
@@ -120,28 +126,35 @@ def sorting_hat():
             print("🎩 I know exactly where you belong...")
             time.sleep(3)
             print("🦁 GRYFFINDOR! 🦁")
+            return "GRYFFINDOR"
         elif Q4=='B':
             time.sleep(3)
             print("Interesting...")
             time.sleep(3)
             print("Ravenclaw 🦅")
+            return "Ravenclaw"
         elif Q4=='C':
             print("Aahhhh...")
             time.sleep(3)
             
             print("Hufflepuff 🦡")
+            return "Hufflepuff"
         else:
             print("uh ohh...So...")
             time.sleep(3)
             print("It's Slytherin 🐍 ")
+            return "Slytherin"
 
+house =sorting_hat(name)
+# print(house)
 
+character = {
+    "name": name,
+    "house": house, 
+    "health":100,
+    "spell_power": 50,
+    "gold": 10,
+    "inventory":[]
+}
 
-
-
-
-
-
-
-sorting_hat()
-
+print(character)
