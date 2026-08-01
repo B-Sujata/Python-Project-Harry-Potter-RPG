@@ -157,4 +157,70 @@ character = {
     "inventory":[]
 }
 
-print(character)
+# print(character)
+
+def view_stats(character):
+    inventory_text = ""
+    if len(character['inventory'])==0:
+        inventory_text = "Empty"
+    else:
+        inventory_text = ",".join(character['inventory'])
+    
+    
+    print("\n⚡Your Wizard Profile⚡")
+    print(f"""
+          🧙 Name       : {character['name']}
+          🏰 House      : {character['house']}
+          ❤️ Health     : {character['health']}
+          ✨ Spell Power : {character['spell_power']}
+          💰 Gold        : {character['gold']}
+          🎒 Inventory   : {inventory_text}
+          """)
+    time.sleep(2)
+    input("Press Enter to return")
+    time.sleep(2)
+
+def main_menu(character):
+    print(f"\nWelcome to Hogwarts, {character['name']} of {character['house']}!")
+
+    
+
+    while True:
+
+        try:
+
+            choice = int(input('''\nWhat would you like to do?
+            
+                1. 🏰 Explore Hogwarts
+                2. 🛒 Visit Diagon Alley
+                3. 🌲 Enter Forbidden Forest
+                4. 📊 View your stats
+                5. 💾 Save and Quit
+            
+                Enter your choice (1-5):''' ))
+            
+            if(choice==1):
+                print("Lets 🏰 Explore Hogwarts ")
+                
+            elif(choice==2):
+                print("Let's 🛒 Visit Diagon Alley ")
+                
+            elif(choice==3):
+                print("Let's 🌲 Enter Forbidden Forest")
+                
+            elif(choice==4):
+                
+                view_stats(character)
+                
+            elif(choice==5):
+                break
+            else:
+                print("Invalid Choice")
+        except ValueError:
+            print("Please enter number between 1 and 5")
+            time.sleep(3)
+
+main_menu(character)
+
+
+
