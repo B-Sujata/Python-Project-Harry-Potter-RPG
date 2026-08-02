@@ -169,12 +169,12 @@ def view_stats(character):
     
     print("\n⚡Your Wizard Profile⚡")
     print(f"""
-          🧙 Name       : {character['name']}
-          🏰 House      : {character['house']}
-          ❤️ Health     : {character['health']}
-          ✨ Spell Power : {character['spell_power']}
-          💰 Gold        : {character['gold']}
-          🎒 Inventory   : {inventory_text}
+          🧙 Name       : {character['name']}\n
+          🏰 House      : {character['house']}\n
+          ❤️ Health     : {character['health']}\n
+          ✨ Spell Power : {character['spell_power']}\n
+          💰 Gold        : {character['gold']}\n
+          🎒 Inventory   : {inventory_text}\n
           """)
     time.sleep(2)
     input("Press Enter to return")
