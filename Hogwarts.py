@@ -1,4 +1,5 @@
 import time
+import random
 
 
 print('''\n🪄✨ Magic cannot begin
@@ -159,6 +160,86 @@ character = {
 
 # print(character)
 
+# Explore Hogwarts
+
+def explore_hogwarts(character):
+    time.sleep(2)
+    print('''\n 
+
+    🕯️ The castle grows strangely quiet...
+    Ancient portraits watch as you wander through forgotten corridors.
+    Every door hides a new secret...
+    ''')
+    time.sleep(2)
+
+    events = [
+    {
+        "message": "🌟 You find a Health Potion hidden behind a painting!",
+        "type": "item",
+        "value": "Health Potion"
+    },
+    {
+        "message": "💰 You discover 5 gold coins on the floor!",
+        "type": "gold",
+        "value": 5
+    },
+    {
+        "message": "👻 A ghost teaches you a new spell! +10 spell power",
+        "type": "spell",
+        "value": 10
+    },
+    {
+        "message": "🕸️ Nothing interesting here... just cobwebs.",
+        "type": "nothing",
+        "value": 0
+    },
+    {
+        "message": "⚡ You find an Elder Wand in an old chest!",
+        "type": "item",
+        "value": "Elder Wand"
+    },
+    {
+        "message": "📖 You find a rare spell book! +15 spell power",
+        "type": "spell",
+        "value": 15
+    },
+    {
+        "message": "💰 A lucky coin pouch! +10 gold",
+        "type": "gold",
+        "value": 10
+    }
+]
+
+    print("\n🏰 You wander through the corridors of Hogwarts...")
+    time.sleep(2)
+
+    selected_event = random.choice(events)
+    print(f"\n✨ {selected_event['message']}")
+    time.sleep(2)
+
+    if selected_event['type']=='item':
+        character['inventory'].append(selected_event['value'])
+        time.sleep(2)
+        print(f"🎒 {selected_event['value']} added to inventory!")
+    elif selected_event['type']=='gold':
+        character['gold']+=selected_event['value']
+        time.sleep(2)
+        print(f"💰 Gold: {character['gold']}")
+    elif selected_event['type']=='spell':
+        character['spell_power']+=selected_event['value']
+        time.sleep(2)
+        print(f"✨ Spell Power: {character['spell_power']}")
+    else:
+        print(selected_event['message'])
+
+
+
+    input("\nPress ENTER to return to menu...")
+
+
+
+
+# View Stats
 def view_stats(character):
     inventory_text = ""
     if len(character['inventory'])==0:
@@ -201,6 +282,7 @@ def main_menu(character):
             
             if(choice==1):
                 print("Lets 🏰 Explore Hogwarts ")
+                explore_hogwarts(character)
                 
             elif(choice==2):
                 print("Let's 🛒 Visit Diagon Alley ")
