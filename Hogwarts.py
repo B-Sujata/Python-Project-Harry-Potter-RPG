@@ -229,12 +229,69 @@ def explore_hogwarts(character):
         character['spell_power']+=selected_event['value']
         time.sleep(2)
         print(f"✨ Spell Power: {character['spell_power']}")
-    else:
-        print(selected_event['message'])
+    
 
 
 
     input("\nPress ENTER to return to menu...")
+
+
+# Visits Diagon Valley
+
+def visit_diagon_alley(character):
+    print("✨ Magic fills the air...")
+
+    time.sleep(2)
+
+    print('''🛍️ Welcome to Diagon Alley.
+    What treasures will you take home today?''')
+
+    print(f"\n your gold - {character['gold']}\n")
+
+    shop = {
+        "Health Potion":  {"price": 5,  "effect": "health",      "value": 30},
+        "Spell Book":     {"price": 8,  "effect": "spell_power",  "value": 20},
+        "Golden Cloak":   {"price": 15, "effect": "item",         "value": "Golden Cloak"},
+        
+    }
+
+    for number, (item_name, details) in enumerate(shop.items(), start = 1):
+        print(number, item_name, "-",  details['price'], "gold")
+
+    print('''\n🛒 Which item would you like to buy?
+    Enter your choice (1-3):''')
+
+
+    try:
+        choice = int(input())
+
+        for number, (item_name, details) in enumerate(shop.items(), start = 1):
+            found = False
+            
+            if choice==number:
+                found = True
+                if character['gold']>=details['price']:
+                    character['gold']-=details['price']
+                    character['inventory'].append(item_name)
+                    time.sleep(2)
+                    print(f"{item_name} added to the inventory\n")
+                    time.sleep(1)
+                    print(f'''✨ The shopkeeper smiles warmly.
+
+                    🎒 {item_name} has been placed in your inventory.
+
+                    ''')
+                    time.sleep(1)
+                    print(f" 💰Remaining gold {character['gold']}")
+
+        if not found:
+            print("Not a valid Choice!")
+
+    except ValueError:
+        print("Please Enter valid number")
+            
+
+
 
 
 
@@ -286,6 +343,7 @@ def main_menu(character):
                 
             elif(choice==2):
                 print("Let's 🛒 Visit Diagon Alley ")
+                visit_diagon_alley(character)
                 
             elif(choice==3):
                 print("Let's 🌲 Enter Forbidden Forest")
