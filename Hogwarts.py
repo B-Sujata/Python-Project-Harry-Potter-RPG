@@ -264,9 +264,10 @@ def visit_diagon_alley(character):
 
     try:
         choice = int(input())
+        found = False
 
         for number, (item_name, details) in enumerate(shop.items(), start = 1):
-            found = False
+            
             
             if choice==number:
                 found = True
@@ -282,14 +283,119 @@ def visit_diagon_alley(character):
 
                     ''')
                     time.sleep(1)
-                    print(f" 💰Remaining gold {character['gold']}")
+                    print(f" 💰 Remaining gold {character['gold']}")
+                    break
+                else:
+                    print("Not enough gold!")
+                    break
+            
 
         if not found:
             print("Not a valid Choice!")
 
     except ValueError:
         print("Please Enter valid number")
-            
+
+
+# Villain Generator
+
+def villain_generator():
+    villains = [
+        {"name": "Dementor",    "health": 50,  "attack": 15},
+        {"name": "Voldemort",   "health": 100, "attack": 30},
+        {"name": "Basilisk",    "health": 70,  "attack": 20},
+        {"name": "Death Eater", "health": 40,  "attack": 12},
+        {"name": "Troll",       "health": 60,  "attack": 18},
+    ]
+
+    while True:
+        yield random.choice(villains).copy()
+
+villain_gen = villain_generator()
+
+# Visit Forbidden Forest
+def visit_forbidden_forest(character):
+    print(f'''
+    🌲 You stand before the entrance to the Forbidden Forest...
+
+    The trees whisper secrets.
+    An icy wind brushes past your robes.
+    Even the bravest witches and wizards think twice before entering.
+
+    ⚠️ Danger lurks in every shadow.
+
+    Do you wish to continue?
+
+    1. 🌟 Enter the Forbidden Forest
+    2. 🏰 Return to Hogwarts''')
+
+    villain = next(villain_gen)
+    spells = ["⚡ Expelliarmus", "💫 Stupefy", "🌟 Expecto Patronum", "🔥 Incendio"]
+
+
+    try:
+        choice = int(input())
+        found = False
+        if choice==1:
+            found = True
+            print("🌲 You slowly walk toward the edge of the Forbidden Forest...")
+            time.sleep(4)
+            print(f"⚠️ {villain['name']} appears from the shadows!")
+            time.sleep(2)
+
+            while character['health']>0 and villain['health']>0:
+                print(f"\n ❤️ Your Health: {character['health'] } | ☠️  {villain['name']} Health : {villain['health']}")
+
+                for i, spell in enumerate(spells, start = 1):
+                    print(f"{i} - {spell}")
+                print("\n Choose your Spell")
+
+                try:
+                    spell_choice = int(input("\n Cast Spell (1-4):"))
+                    if 1<=spell_choice<=4:
+                        villain_damage = random.randint(character['spell_power']//2, character['spell_power'])
+                        print(f'''✨ You cast {spells[spell_choice-1]}!
+                        💥 You dealt {villain_damage} damage!''')
+                        time.sleep(2)
+                        villain['health']-=villain_damage
+                        print(f"☠️  {villain['name']} has {max(0, villain['health'])} health remaining.")
+
+                        if villain['health']>0:
+                            player_damage = random.randint(villain['attack']//2, villain['attack'])
+                            print(f"💀 {villain['name']} strikes back! You take {player_damage} damage!")
+                            time.sleep(2)
+                            character['health']-=player_damage
+                            if character['health']<=0:
+                                break
+                    else:
+                        print("Invalid Spell Choice")
+
+                    
+                except ValueError:
+                    print("Please Enter a valid number")
+
+            if character['health']>0:
+                gold_won = random.randint(5, 20)
+                character['gold']+=gold_won
+                print(f"\n🏆 Victory! You defeated the {villain['name']}!")
+                print(f"💰 You earned {gold_won} gold! Total gold: {character['gold']}")
+
+            else:
+
+                print(f"\n💀 You were defeated by the {villain['name']}...")
+                print("🏥 Madam Pomfrey heals you back to 30 health.")
+                character['health'] = 30
+
+            input("\n Press ENTER to return to main menu...")
+
+        if choice==2:
+            found = True
+            return
+        if not found:
+            print("Please enter a valid choice")
+    except ValueError:
+        print("Please Enter a Valid Choice")
+
 
 
 
@@ -346,7 +452,8 @@ def main_menu(character):
                 visit_diagon_alley(character)
                 
             elif(choice==3):
-                print("Let's 🌲 Enter Forbidden Forest")
+                
+                visit_forbidden_forest(character)
                 
             elif(choice==4):
                 
