@@ -269,14 +269,21 @@ def visit_diagon_alley(character):
                 found = True
                 if character['gold']>=details['price']:
                     character['gold']-=details['price']
-                    character['inventory'].append(item_name)
-                    time.sleep(2)
-                    print(f"{item_name} added to the inventory\n")
-                    time.sleep(1)
-                    print(f'''✨ The shopkeeper smiles warmly.
+                    if details['effect'] == 'health':
+                        character['health'] = min(100, character['health'] + details['value'])
+                        print("❤️ You drink the potion. Strength flows through you!")
+                        print(f"❤️ Health restored! Health: {character['health']}")
+                    elif details['effect'] == 'spell_power':
+                        character['spell_power'] += details['value']
+                        print("✨ Ancient magic courses through your wand!")
+                        print(f"✨ Spell Power increased! Power: {character['spell_power']}")
+                    elif details['effect'] == 'item':
+                        character['inventory'].append(item_name)
+                        print(f"🎒 {item_name} added to inventory!")
+                    print(f'''
+                    ✨ The shopkeeper nods approvingly.
 
-                    🎒 {item_name} has been placed in your inventory.
-
+                    "May it serve you well, young wizard."
                     ''')
                     time.sleep(1)
                     print(f" 💰 Remaining gold {character['gold']}")
@@ -325,7 +332,7 @@ def visit_forbidden_forest(character):
     1. 🌟 Enter the Forbidden Forest
     2. 🏰 Return to Hogwarts''')
 
-    villain = next(villain_gen)
+   
     spells = ["⚡ Expelliarmus", "💫 Stupefy", "🌟 Expecto Patronum", "🔥 Incendio"]
 
 
@@ -334,6 +341,7 @@ def visit_forbidden_forest(character):
         found = False
         if choice==1:
             found = True
+            villain = next(villain_gen)
             print("🌲 You slowly walk toward the edge of the Forbidden Forest...")
             time.sleep(4)
             print(f"⚠️ {villain['name']} appears from the shadows!")
