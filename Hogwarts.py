@@ -1,15 +1,24 @@
 import time
 import random
+import json
+import os
+
+# Save and Quit
+def save_and_quit(character):
+    with open('save_game.json', 'w') as file:
+        json.dump(character, file, indent=4)
+
+# Load game
+
+def load_game():
+    if os.path.exists('save_game.json'):
+        with open('save_game.json', 'r') as file:
+            character = json.load(file)
+        return character
+    return None
 
 
-print('''\n🪄✨ Magic cannot begin
-until your name is known...\n''')
-
-name = input("📜 Enter your name:\n")
-
-print(f"Welcome, {name}!\n The castle has been expecting you. ")
-
-
+#Sorting hat function
 def sorting_hat(name):
     
     answers = []
@@ -146,19 +155,6 @@ def sorting_hat(name):
             print("It's Slytherin 🐍 ")
             return "Slytherin"
 
-house =sorting_hat(name)
-# print(house)
-
-character = {
-    "name": name,
-    "house": house, 
-    "health":100,
-    "spell_power": 50,
-    "gold": 10,
-    "inventory":[]
-}
-
-# print(character)
 
 # Explore Hogwarts
 
@@ -344,6 +340,7 @@ def visit_forbidden_forest(character):
             time.sleep(2)
 
             while character['health']>0 and villain['health']>0:
+                time.sleep(2)
                 print(f"\n ❤️ Your Health: {character['health'] } | ☠️  {villain['name']} Health : {villain['health']}")
 
                 for i, spell in enumerate(spells, start = 1):
@@ -354,6 +351,7 @@ def visit_forbidden_forest(character):
                     spell_choice = int(input("\n Cast Spell (1-4):"))
                     if 1<=spell_choice<=4:
                         villain_damage = random.randint(character['spell_power']//2, character['spell_power'])
+                        time.sleep(2)
                         print(f'''✨ You cast {spells[spell_choice-1]}!
                         💥 You dealt {villain_damage} damage!''')
                         time.sleep(2)
@@ -362,6 +360,7 @@ def visit_forbidden_forest(character):
 
                         if villain['health']>0:
                             player_damage = random.randint(villain['attack']//2, villain['attack'])
+                            time.sleep(2)
                             print(f"💀 {villain['name']} strikes back! You take {player_damage} damage!")
                             time.sleep(2)
                             character['health']-=player_damage
@@ -377,10 +376,12 @@ def visit_forbidden_forest(character):
             if character['health']>0:
                 gold_won = random.randint(5, 20)
                 character['gold']+=gold_won
+                time.sleep(4)
                 print(f"\n🏆 Victory! You defeated the {villain['name']}!")
                 print(f"💰 You earned {gold_won} gold! Total gold: {character['gold']}")
 
             else:
+                time.sleep(4)
 
                 print(f"\n💀 You were defeated by the {villain['name']}...")
                 print("🏥 Madam Pomfrey heals you back to 30 health.")
@@ -424,6 +425,12 @@ def view_stats(character):
     input("Press Enter to return")
     time.sleep(2)
 
+
+
+
+
+
+
 def main_menu(character):
     print(f"\nWelcome to Hogwarts, {character['name']} of {character['house']}!")
 
@@ -460,6 +467,10 @@ def main_menu(character):
                 view_stats(character)
                 
             elif(choice==5):
+                save_and_quit(character)
+                print("\n💾 Game Saved Successfully!")
+                print("👋 Goodbye from Hogwarts!")
+                time.sleep(2)
                 break
             else:
                 print("Invalid Choice")
@@ -467,7 +478,45 @@ def main_menu(character):
             print("Please enter number between 1 and 5")
             time.sleep(3)
 
+
+
+
+
+
+saved = load_game()
+
+if saved:
+    cont = input("💾 Saved game found! Continue? (Y/N): ").upper().strip()
+
+    if cont=='Y':
+        character = saved
+        main_menu(character)
+        exit()
+
+
+
+# Starting of game --> Welcome message
+print('''\n🪄✨ Magic cannot begin
+until your name is known...\n''')
+
+name = input("📜 Enter your name:\n")
+
+print(f"Welcome, {name}!\n The castle has been expecting you. ")
+
+
+house =sorting_hat(name)
+# print(house)
+
+character = {
+    "name": name,
+    "house": house, 
+    "health":100,
+    "spell_power": 50,
+    "gold": 10,
+    "inventory":[]
+}
+
+# print(character)
+
+
 main_menu(character)
-
-
-
