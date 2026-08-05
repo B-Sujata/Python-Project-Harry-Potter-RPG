@@ -239,65 +239,76 @@ def visit_diagon_alley(character):
 
     time.sleep(2)
 
-    print('''🛍️ Welcome to Diagon Alley.
-    What treasures will you take home today?''')
-
-    print(f"\n your gold - {character['gold']}\n")
-
     shop = {
-        "Health Potion":  {"price": 5,  "effect": "health",      "value": 30},
-        "Spell Book":     {"price": 8,  "effect": "spell_power",  "value": 20},
-        "Golden Cloak":   {"price": 15, "effect": "item",         "value": "Golden Cloak"},
-        
+    "Health Potion":  {"price": 5,  "effect": "health",      "value": 30},
+    "Spell Book":     {"price": 8,  "effect": "spell_power",  "value": 20},
+    "Golden Cloak":   {"price": 15, "effect": "item",         "value": "Golden Cloak"},
+                
     }
 
-    for number, (item_name, details) in enumerate(shop.items(), start = 1):
-        print(number, item_name, "-",  details['price'], "gold")
+    while True:
+        print('''🛍️ Welcome to Diagon Alley.
+        What treasures will you take home today?''')
 
-    print('''\n🛒 Which item would you like to buy?
-    Enter your choice (1-3):''')
+        print(f"\n your gold - {character['gold']}\n")
 
+        
 
-    try:
-        choice = int(input())
-        found = False
+        
 
         for number, (item_name, details) in enumerate(shop.items(), start = 1):
-            
-            
-            if choice==number:
-                found = True
-                if character['gold']>=details['price']:
-                    character['gold']-=details['price']
-                    if details['effect'] == 'health':
-                        character['health'] = min(100, character['health'] + details['value'])
-                        print("❤️ You drink the potion. Strength flows through you!")
-                        print(f"❤️ Health restored! Health: {character['health']}")
-                    elif details['effect'] == 'spell_power':
-                        character['spell_power'] += details['value']
-                        print("✨ Ancient magic courses through your wand!")
-                        print(f"✨ Spell Power increased! Power: {character['spell_power']}")
-                    elif details['effect'] == 'item':
-                        character['inventory'].append(item_name)
-                        print(f"🎒 {item_name} added to inventory!")
-                    print(f'''
-                    ✨ The shopkeeper nods approvingly.
+            print(number, item_name, "-",  details['price'], "gold")
 
-                    "May it serve you well, young wizard."
-                    ''')
-                    time.sleep(1)
-                    print(f" 💰 Remaining gold {character['gold']}")
-                    break
-                else:
-                    print("Not enough gold!")
-                    break
-            
+        print("4. Leave Shop")
 
-        if not found:
-            print("Not a valid Choice!")
+        print('''\n🛒 Which item would you like to buy?
+        Enter your choice (1-4):''')
 
-    except ValueError:
-        print("Please Enter valid number")
+
+        try:
+            choice = int(input())
+            found = False
+
+            if choice == 4:
+                print("👋 Thanks for visiting Diagon Alley!")
+                break
+
+            for number, (item_name, details) in enumerate(shop.items(), start = 1):
+                
+                
+                if choice==number:
+                    found = True
+                    if character['gold']>=details['price']:
+                        character['gold']-=details['price']
+                        if details['effect'] == 'health':
+                            character['health'] = min(100, character['health'] + details['value'])
+                            print("❤️ You drink the potion. Strength flows through you!")
+                            print(f"❤️ Health restored! Health: {character['health']}")
+                        elif details['effect'] == 'spell_power':
+                            character['spell_power'] += details['value']
+                            print("✨ Ancient magic courses through your wand!")
+                            print(f"✨ Spell Power increased! Power: {character['spell_power']}")
+                        elif details['effect'] == 'item':
+                            character['inventory'].append(item_name)
+                            print(f"🎒 {item_name} added to inventory!")
+                        print(f'''
+                        ✨ The shopkeeper nods approvingly.
+
+                        "May it serve you well, young wizard."
+                        ''')
+                        time.sleep(1)
+                        print(f" 💰 Remaining gold {character['gold']}")
+                        break
+                    else:
+                        print("Not enough gold!")
+                        break
+                
+
+            if not found:
+                print("Not a valid Choice!")
+
+        except ValueError:
+            print("Please Enter valid number")
 
 
 # Villain Generator
@@ -386,7 +397,37 @@ def visit_forbidden_forest(character):
                 character['gold']+=gold_won
                 time.sleep(4)
                 print(f"\n🏆 Victory! You defeated the {villain['name']}!")
+                character["villains_defeated"] += 1
                 print(f"💰 You earned {gold_won} gold! Total gold: {character['gold']}")
+                print(f"Villains defeated: {character['villains_defeated']}")
+
+                loot = random.choice([
+                "Phoenix Feather",
+                "Dragon Scale",
+                "Crystal Orb",
+                "Ancient Rune"
+                ])
+
+                character["inventory"].append(loot)
+
+                print(f"🎁 You found: {loot}")
+
+                if character["villains_defeated"] >= 5:
+                    print(f"""
+
+                    ✨✨✨ CONGRATULATIONS! ✨✨✨
+
+                    You have defeated five dark creatures.
+
+                    The Headmaster awards you
+                    "The Order of Merlin"
+
+                    🏆 You have become
+                    Hero of Hogwarts!
+
+                    Thank you for playing.
+                    """)
+                    exit()
 
             else:
                 time.sleep(4)
@@ -428,6 +469,7 @@ def view_stats(character):
           ✨ Spell Power : {character['spell_power']}\n
           💰 Gold        : {character['gold']}\n
           🎒 Inventory   : {inventory_text}\n
+          ⚔️ Villains Defeated : {character['villains_defeated']}
           """)
     time.sleep(2)
     input("Press Enter to return")
@@ -521,7 +563,8 @@ character = {
     "health":100,
     "spell_power": 50,
     "gold": 10,
-    "inventory":[]
+    "inventory":[],
+    "villains_defeated": 0
 }
 
 # print(character)
