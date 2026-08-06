@@ -79,7 +79,7 @@ The hardest parts were:
 - Designing the save/load system with JSON file handling
 - Building the battle loop with proper health tracking for both player and villain
 
-The most fun part was the Sorting Hat quiz — designing questions that actually map to the four Hogwarts houses!
+The most fun part was designing the forbidden forest — casting different spells and fighting random villains!
 
 ---
 
