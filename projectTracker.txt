@@ -1,0 +1,36 @@
+📊 Your Project Progress Tracker
+
+Project: Hogwarts RPG
+Started: Day 2 of 6-month journey
+Completed: Day ~14
+Time taken: ~8-10 hours across multiple sessions
+
+Python concepts learned through this project:
+
+Concept	Where used
+Variables + data types	Character stats, game state
+f-strings	All print statements
+Lists	answers, inventory, events, spells
+Dictionaries	character, shop, events, villains
+Nested dictionaries	shop items with price/effect/value
+Functions + parameters	All 8 functions
+Return values	sorting_hat() returns house
+if/elif/else	House detection, battle, shop
+while loop	Main menu, shop loop, battle loop
+for loop	Answer counting, shop display
+try/except	All user inputs — 4 places
+String methods	.upper(), .strip(), .join()
+List methods	.append(), .choice()
+import modules	time, random, json, os
+time.sleep()	Dramatic pauses
+random.choice()	Events, loot drops
+random.randint()	Battle damage
+enumerate()	Shop numbering, spell numbering
+min() / max()	Health cap, count winner
+File handling	open(), read, write, json.dump/load
+JSON module	Save/load character data
+os.path.exists()	Check if save file exists
+Generator (yield)	villain_generator()
+.copy()	Villain dict isolation
+exit()	Win condition + save load
+len()	Inventory empty check

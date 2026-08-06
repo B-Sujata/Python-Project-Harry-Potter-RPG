@@ -247,10 +247,14 @@ def visit_diagon_alley(character):
     }
 
     while True:
-        print('''🛍️ Welcome to Diagon Alley.
+        print(''' 🛍️  Welcome to Diagon Alley.
         What treasures will you take home today?''')
 
+        time.sleep(1)
+
         print(f"\n your gold - {character['gold']}\n")
+        time.sleep(2)
+
 
         
 
@@ -260,6 +264,7 @@ def visit_diagon_alley(character):
             print(number, item_name, "-",  details['price'], "gold")
 
         print("4. Leave Shop")
+        time.sleep(1)
 
         print('''\n🛒 Which item would you like to buy?
         Enter your choice (1-4):''')
@@ -284,13 +289,16 @@ def visit_diagon_alley(character):
                             character['health'] = min(100, character['health'] + details['value'])
                             print("❤️ You drink the potion. Strength flows through you!")
                             print(f"❤️ Health restored! Health: {character['health']}")
+                            time.sleep(2)
                         elif details['effect'] == 'spell_power':
                             character['spell_power'] += details['value']
                             print("✨ Ancient magic courses through your wand!")
                             print(f"✨ Spell Power increased! Power: {character['spell_power']}")
+                            time.sleep(2)
                         elif details['effect'] == 'item':
                             character['inventory'].append(item_name)
                             print(f"🎒 {item_name} added to inventory!")
+                            time.sleep(2)
                         print(f'''
                         ✨ The shopkeeper nods approvingly.
 
@@ -329,13 +337,17 @@ villain_gen = villain_generator()
 
 # Visit Forbidden Forest
 def visit_forbidden_forest(character):
+    time.sleep(2)
     print(f'''
     🌲 You stand before the entrance to the Forbidden Forest...
 
     The trees whisper secrets.
     An icy wind brushes past your robes.
-    Even the bravest witches and wizards think twice before entering.
+    Even the bravest witches and wizards think twice before entering.''')
 
+    time.sleep(2)
+
+    print(f'''
     ⚠️ Danger lurks in every shadow.
 
     Do you wish to continue?
@@ -472,7 +484,7 @@ def view_stats(character):
           ⚔️ Villains Defeated : {character['villains_defeated']}
           """)
     time.sleep(2)
-    input("Press Enter to return")
+    input("Press ENTER to return")
     time.sleep(2)
 
 
