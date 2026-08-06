@@ -95,7 +95,7 @@ The most fun part was designing the forbidden forest — casting different spell
 
 ## 👩‍💻 Author
 
-**Sujata Bhadke** — B.Tech IT, VIIT Pune
+**Sujata Bhadke** — B.Tech IT, VIIT Pune,
 Part of my 6-month ML Engineer learning journey.
 
 [GitHub](https://github.com/B-Sujata) | [LinkedIn](https://www.linkedin.com/in/sujata-bhadke-70a2342ba/)
